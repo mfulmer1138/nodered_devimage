@@ -73,7 +73,7 @@ class Flows(object):
             flows_file.write(json.dumps(subflow, indent=4))
 
 def usage():
-    u = "{} -u <url> -d <dir>'.format(sys.argv[0])\n"\
+    u = "{} -u <url> -d <dir>\n"\
         "\n"\
         "    -u, --url=<url> ... the base url for the devimage container, typically '8080'\n"\
         "    -d, --dir=<dir> ... the directory to output the subflows, typically 'subflows'\n".format(sys.argv[0])

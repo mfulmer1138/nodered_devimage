@@ -26,7 +26,7 @@ If new subflows are created during the process of the flow development, and thes
 
 Usage for export_subflows.py:
 ```
-./export_subflows.py -u <url> -d <dir>'.format(sys.argv[0])
+./export_subflows.py -u <url> -d <dir>
 
     -u, --url=<url> ... the base url for the devimage container, typically '8080'
     -d, --dir=<dir> ... the directory to output the subflows, typically 'subflows'
