@@ -25,7 +25,7 @@ COPY data/flows.json /data
 If new subflows are created during the process of the flow development, and these subflows are deemed a shareable asset by the team, the subflows must be exported by using the `export_subflows.py` Python 3 script and a pull request for the devimage must be initiated to merge the new subflows into the devimage repo.
 
 Usage for export_subflows.py:
-```` Python
+```
 ./export_subflows.py -u <url> -d <dir>'.format(sys.argv[0])
 
     -u, --url=<url> ... the base url for the devimage container, typically '8080'
