@@ -1,0 +1,70 @@
+[
+    {
+        "name": "myfunc",
+        "in": [],
+        "info": "",
+        "id": "9860a53d.3e1898",
+        "type": "subflow",
+        "out": [
+            {
+                "y": 278,
+                "x": 717,
+                "wires": [
+                    {
+                        "id": "7de3fd3d.71abf4",
+                        "port": 0
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "wires": [
+            [
+                "7de3fd3d.71abf4"
+            ]
+        ],
+        "func": "\nreturn msg;",
+        "name": "func",
+        "z": "9860a53d.3e1898",
+        "y": 271,
+        "id": "bac74132.7f997",
+        "x": 363.5,
+        "type": "function",
+        "outputs": 1,
+        "noerr": 0
+    },
+    {
+        "wires": [
+            []
+        ],
+        "func": "\nreturn msg;",
+        "name": "func2",
+        "z": "9860a53d.3e1898",
+        "y": 274,
+        "id": "7de3fd3d.71abf4",
+        "x": 544.5,
+        "type": "function",
+        "outputs": 1,
+        "noerr": 0
+    },
+    {
+        "topic": "",
+        "once": true,
+        "id": "59d18f3c.061bd",
+        "payloadType": "date",
+        "y": 272,
+        "x": 172.5,
+        "type": "inject",
+        "name": "",
+        "z": "9860a53d.3e1898",
+        "repeat": "",
+        "payload": "",
+        "wires": [
+            [
+                "bac74132.7f997"
+            ]
+        ],
+        "crontab": ""
+    }
+]
