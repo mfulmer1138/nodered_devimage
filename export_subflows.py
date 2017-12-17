@@ -5,6 +5,8 @@
 from urllib.parse import urlparse
 import json
 import requests
+import sys
+import getopt
 
 class Flows(object):
     ''' main Flows utility class
@@ -70,13 +72,38 @@ class Flows(object):
         with open(name, "w") as flows_file:
             flows_file.write(json.dumps(subflow, indent=4))
 
+def usage():
+    u = "{} -u <url> -d <dir>'.format(sys.argv[0])\n"\
+        "\n"\
+        "    -u, --url=<url> ... the base url for the devimage container, typically '8080'\n"\
+        "    -d, --dir=<dir> ... the directory to output the subflows, typically 'subflows'\n".format(sys.argv[0])
+    return u
+
 if __name__ == "__main__":
+
+    try:
+         opts, args = getopt.getopt(sys.argv[1:],"h?u:d:",["url=","dir="])
+    except getopt.GetoptError as err:
+        print(err)
+        print(usage())
+        sys.exit(2)
+    for opt, arg in opts:
+        if opt == '-h' or opt=='-?':
+            print(usage())
+            sys.exit()
+        elif opt in ("-u", "--url"):
+            url = arg
+        elif opt in ("-d", "--dir"):
+            outdir = arg
+
+
     flows = Flows()
-    flows.set_flows("http://127.0.0.1:1880/")
+    flows.set_flows(url)
 
     for (sid, name) in flows.iterate_subflows():
         subflow = flows.get_subflow(sid)
-        flows.store_subflow(subflow, "./flows/subflow_{}.json".format(name.replace(" ", "_")))
+        flows.store_subflow(subflow, "{}/subflow_{}.json".format(outdir,name.replace(" ", "_")))
 
-    flows.store_subflow(flows.get_subflows(), "./flows/subflow_master.json")
-    flows.store_subflow(flows.get_flows(), "./flows/flow_master.json")
+    # examples of other features
+    #flows.store_subflow(flows.get_subflows(), "./flows/subflow_master.json")
+    #flows.store_subflow(flows.get_flows(), "./flows/flow_master.json")
