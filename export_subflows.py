@@ -75,7 +75,7 @@ class Flows(object):
 def usage():
     u = "{} -u <url> -d <dir>\n"\
         "\n"\
-        "    -u, --url=<url> ... the base url for the devimage container, typically '8080'\n"\
+        "    -u, --url=<url> ... the base url for the devimage container, typically 'http://127.0.0.1/8080'\n"\
         "    -d, --dir=<dir> ... the directory to output the subflows, typically 'subflows'\n".format(sys.argv[0])
     return u
 
