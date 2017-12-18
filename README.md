@@ -2,7 +2,7 @@
 
 This repo contains an example Docker mangaged Node-RED deployment used for developing flows intended to run as isolated Docker containers. Additionally, the repo contains the mechanisms necessary to share subflow development across a team or organization.
 
-A typical project directory structure for working with both the devimage container and the new server containers looks as follows:
+A typical project directory structure for working with both the devimage container and the new service containers looks as follows:
 ```
 .
 +-- nodered_devimage
