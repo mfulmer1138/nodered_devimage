@@ -2,6 +2,25 @@
 
 This repo contains an example Docker mangaged Node-RED deployment used for developing flows intended to run as isolated Docker containers. Additionally, the repo contains the mechanisms necessary to share subflow development across a team or organization.
 
+A typical project directory structure for working with both the devimage container and the new server containers looks as follows:
+```
+.
++-- nodered_devimage
+|   +-- Dockerfile
+|   +-- export_subflows.py
+|   +-- manage_subflows.py
+|   +-- setup.sh
+|   +-- data
+|   |   +-- flows.json
+|   +-- subflows
+|       +-- subflow_example.json
++-- new_container
+    +-- Dockerfile
+    +-- other supporting files
+    +-- data
+        +-- flows.json
+```
+
 Run `./setup.sh` to create data directory, merge all subflows into the default `flows.json`, and build the container. This setup script will call the `merge_flows.json` script to build `flows.json` from the individual subflow scripts found in the `subflows` directory. The container build is executed with the following arguments: 
 ```sh
 docker build -t devimage:latest .
@@ -29,7 +48,7 @@ COPY data/flows.json /data
 
 If new subflows are created during the process of the flow development, and these subflows are deemed a shareable asset by the team, the subflows must be exported by using the `export_subflows.py` Python 3.5+ script and a pull request for the `devimage` must be initiated to merge the new subflows into the `devimage` repo.
 
-Usage for export_subflows.py:
+Usage for `export_subflows.py`:
 ```
 ./export_subflows.py -u <url> -d <dir>
 
