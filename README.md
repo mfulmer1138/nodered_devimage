@@ -52,7 +52,7 @@ Usage for `export_subflows.py`:
 ```
 ./export_subflows.py -u <url> -d <dir>
 
-    -u, --url=<url> ... the base url for the devimage container, typically '8080'
+    -u, --url=<url> ... the base url for the devimage container, typically 'http://127.0.0.1/8080'
     -d, --dir=<dir> ... the directory to output the subflows, typically 'subflows'
 ```
 
