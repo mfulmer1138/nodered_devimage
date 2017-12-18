@@ -1,5 +1,7 @@
 # node-red development image
 
+This repo contains an example Docker mangaged Node-RED deployment used for developing flows intended to run as isolated Docker containers. Additionally, the repo contains the mechanisms necessary to share subflow development across a team or organization.
+
 Run `./setup.sh` to create data directory, merge all subflows into the default `flows.json`, and build the container. This setup script will call the `merge_flows.json` script to build `flows.json` from the individual subflow scripts found in the `subflows` directory. The container build is executed with the following arguments: 
 ```sh
 docker build -t devimage:latest .
