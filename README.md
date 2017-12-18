@@ -1,22 +1,25 @@
 # node-red development image
 
-Run `./setup.sh` to create data directory, merge all subflows into the default flows.json, and build the container
+Run `./setup.sh` to create data directory, merge all subflows into the default flows.json, and build the container. This setupscript will call the `merge_flows.json` script to build the flows.json from the individual subflow scripts. The container build is executed with the following arguments: 
+```sh
+docker build -t devimage:latest .
+```
 
 Run the container (with suggested port 8080):
-``` sh
+```sh
 docker run -it -p 8080:1880 --rm -v /absolute/path/to/devimage/data/:/data -d --name devimage devimage:latest
 ```
 
 Proceed to build flows and subflows as required.
 
 When the flows are ready for container deployment, the flows.json file will need to be copied to the data directory of the final conainter by copying the flows.json to a local data folder in the root of your new container project and including `COPY data/flows.json /data` in the Dockerfile. For example:
-``` Dockerfile
+```Dockerfile
 FROM nodered/node-red-docker
 COPY data/flows.json /data
 ```
 
 If new packages are required for the new flows, the Dockerfile of the new container must contain the npm directives. For example:
-``` Dockerfile
+```Dockerfile
 FROM nodered/node-red-docker
 RUN npm install node-red-contrib-env
 COPY data/flows.json /data
