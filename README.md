@@ -56,4 +56,4 @@ Usage for `export_subflows.py`:
     -d, --dir=<dir> ... the directory to output the subflows, typically 'subflows'
 ```
 
-Lastly, if the new subflows require new pacakges, the master `Dockerfile` for this repo must include the npm directives. Again, a pull request must be initiated to merge these `Dockerfile` changes into the `devimage` repo.
+Lastly, if the new subflows require new pacakges, the master `Dockerfile` for this repo must include the `npm` directives. Again, a pull request must be initiated to merge these `Dockerfile` changes into the `devimage` repo.
