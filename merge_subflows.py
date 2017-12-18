@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-''' take all files from the cwd and merge them into a master flows.json
+''' take all files from the subflows directory under the cwd and merge them into a master flows.json
 '''
 import glob
 import json
