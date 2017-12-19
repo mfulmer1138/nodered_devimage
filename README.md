@@ -38,10 +38,11 @@ docker run -it -p 8080:1880 --rm -v /absolute/path/to/nodered_devimage/data/:/da
 
 Connect to the container (typically [http://127.0.0.1:8080](http://127.0.0.1:8080) for the typical local container installation) and proceed to build flows and subflows as required.
 
-When the flows are ready for container deployment, the `flows.json` file will need to be copied to the `data` directory of the final conainter by copying the `flows.json` to a `data` directory in the root of your new container project and including `COPY data/flows.json /data` in the `Dockerfile`. For example:
+When the flows are ready for container deployment, the `flows.json` and `settings.js` file will need to be copied to the `data` directory of the final conainter by copying the `flows.json` to a `data` directory in the root of your new container project and including `COPY data/flows.json /data` in the `Dockerfile`. For example:
 ```sh
 # from the nodered_devimage directory
 cp ./data/flows.json ../new_container/data
+cp ./data/settings.json ../new_container/data
 ```
 and
 ```Dockerfile
@@ -54,6 +55,7 @@ If new packages are required for the new flows, the `Dockerfile` of the new cont
 FROM nodered/node-red-docker
 RUN npm install node-red-contrib-env
 COPY data/flows.json /data
+COPY data/settings.js /data
 ```
 
 If new subflows are created during the process of the flow development, and these subflows are deemed a shareable asset by the team, the subflows must be exported by using the `export_subflows.py` Python 3.5+ script and a pull request must be initiated to merge the new subflows into the `nodered_devimage` repo.
@@ -68,7 +70,7 @@ Usage for `export_subflows.py`:
 
 If the new subflows require new Node-RED pacakges, the master `Dockerfile` for this repo must include the `npm` directives. Again, a pull request must be initiated to merge these `Dockerfile` changes into the `nodered_devimage` repo.
 
-If the new flows or subflows require new Node packages (these would be packages added to function scripts via the `var require = global.get('<packagename>');` call), the settings.js file must be modified to include these pacakges in the global context. Examples of modification are included in the settings.js file as well as here:
+If the new flows or subflows require new Node packages (these would be packages added to function scripts via the `var packagename = global.get('<packagename>');` call), the settings.js file must be modified to include these pacakges in the global context. Examples of modification are included in the settings.js file as well as here:
 ```
     functionGlobalContext: {
         // os:require('os'),
@@ -79,7 +81,7 @@ If the new flows or subflows require new Node packages (these would be packages 
     },
  ```
 
-In order to ensure these settings files changes are always available to the new packages, the `settings.js` file will need to be copied to the `data` directory of the final conainter by copying the `settings.js` to a `data` directory in the root of your new container project and including `COPY data/settings.json /data` in the `Dockerfile`. Additionally, the `Dockerfile` must include the `npm` directive for installing the new package. For example:
+Additionally, the `Dockerfile` must include the `npm` directive for installing the new package. For example:
 ```sh
 # from the nodered_devimage directory
 cp ./data/settings.json ../new_container/data
@@ -92,4 +94,4 @@ COPY data/flows.json /data
 COPY data/settings.js /data
 ```
 
-A pull request must be initiated to merge these `settings.js` changes for subflows into the `nodered_devimage` repo.
+A pull request must be initiated to merge any `settings.js` changes for subflows into the `nodered_devimage` repo. If the changes are specific to a flow, then the pull request is not necessary.
