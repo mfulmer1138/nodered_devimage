@@ -2,7 +2,7 @@
 
 This repo contains an example Docker mangaged Node-RED deployment used for developing flows intended to run as isolated Docker containers. Additionally, the repo contains the mechanisms necessary to share subflow development across a team or organization.
 
-**_TODO: Place default settings.json file in repo and describe process for making modificiations (e.g., adding node packages)_**
+**_TODO: Create a build new container script that will create the baseline Dockerfile and move the flow.json file and setting.js file. Currently this must be done manually._**
 
 A typical project directory structure for working with both the devimage container and the new service containers looks as follows:
 ```
@@ -68,7 +68,7 @@ Usage for `export_subflows.py`:
 
 If the new subflows require new Node-RED pacakges, the master `Dockerfile` for this repo must include the `npm` directives. Again, a pull request must be initiated to merge these `Dockerfile` changes into the `devimage` repo.
 
-If the new subflows require new Node packages (these would be packages added to function scripts via the `var require = global.get('<packagename>');` call), the settings.js file must be modified to include these pacakges in the global context. Examples of modification are included in the settings.js file as well as here:
+If the new flows or subflows require new Node packages (these would be packages added to function scripts via the `var require = global.get('<packagename>');` call), the settings.js file must be modified to include these pacakges in the global context. Examples of modification are included in the settings.js file as well as here:
 ```
     functionGlobalContext: {
         // os:require('os'),
@@ -78,7 +78,7 @@ If the new subflows require new Node packages (these would be packages added to 
         packagename:require('<packagename>')
     },
  ```
-If there are `settings.js` changes, the `settings.js` file will need to be copied to the `data` directory of the final conainter by copying the `settings.js` to a `data` directory in the root of your new container project and including `COPY data/settings.json /data` in the `Dockerfile`. Additionally, the `Dockerfile` must include the `npm` directive for installing the new package. For example:
+In order to ensure these settings files changes are always available to the new packages, the `settings.js` file will need to be copied to the `data` directory of the final conainter by copying the `settings.js` to a `data` directory in the root of your new container project and including `COPY data/settings.json /data` in the `Dockerfile`. Additionally, the `Dockerfile` must include the `npm` directive for installing the new package. For example:
 ```sh
 # from the nodered_devimage directory
 cp ./data/settings.json ../new_container/data
@@ -90,3 +90,4 @@ RUN npm install <packagename>
 COPY data/flows.json /data
 COPY data/settings.js /data
 ```
+A pull request must be initiated to merge these `settings.js` changes for subflows into the `devimage` repo.
