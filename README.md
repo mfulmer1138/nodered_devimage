@@ -2,7 +2,7 @@
 
 This repo contains an example Docker mangaged Node-RED deployment used for developing flows intended to run as isolated Docker containers. Additionally, the repo contains the mechanisms necessary to share subflow development across a team or organization.
 
-**_TODO: Create a build new container script that will create the baseline Dockerfile and move the flow.json file and setting.js file. Currently this must be done manually._**
+**_TODO: Create a "build new container" script that will create the baseline Dockerfile and move the flow.json file and setting.js file. Currently this must be done manually, using the recommendations below._**
 
 A typical project directory structure for working with both the devimage container and the new service containers looks as follows:
 ```
