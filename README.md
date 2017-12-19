@@ -91,3 +91,5 @@ COPY data/settings.js /data
 ```
 
 A pull request must be initiated to merge any `settings.js` changes for subflows into the `nodered_devimage` repo. If the changes are specific to a flow, then the pull request is not necessary.
+
+Lastly, if, during the course of flow development, you are required to develop a new Node-RED node, please follow the instructions found here: [https://nodered.org/docs/creating-nodes/](https://nodered.org/docs/creating-nodes/), paying special attention to the packaging and npm publishing instructions. Packages built this way will be included in the containers via the `RUN npm install <pacakagename>` directive. An example package can be found here: [https://flows.nodered.org/node/node-red-contrib-csvtojson](https://flows.nodered.org/node/node-red-contrib-csvtojson).
