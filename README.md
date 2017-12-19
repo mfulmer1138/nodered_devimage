@@ -4,7 +4,7 @@ This repo contains an example Docker mangaged Node-RED deployment used for devel
 
 **_TODO: Create a "build new container" script that will create the baseline Dockerfile and move the flow.json file and setting.js file. Currently this must be done manually, using the recommendations below._**
 
-A typical project directory structure for working with both the devimage container and the new service containers looks as follows:
+A typical project directory structure for working with both the `devimage` container and the new service containers looks as follows:
 ```
 .
 +-- nodered_devimage
@@ -26,7 +26,7 @@ A typical project directory structure for working with both the devimage contain
         +-- settings.js
 ```
 
-Run `./setup.sh` merge all subflows into the default `flows.json` and build the container. This setup script will call the `merge_flows.json` script to build `flows.json` from the individual subflow scripts found in the `subflows` directory. The container build is executed with the following arguments: 
+Run `./setup.sh` merge all subflows into the default `flows.json` and build the `devimage` container. This setup script will call the `merge_flows.json` script to build `flows.json` from the individual subflow scripts found in the `subflows` directory. The container build is executed with the following arguments: 
 ```sh
 docker build -t devimage:latest .
 ```
@@ -66,7 +66,7 @@ Usage for `export_subflows.py`:
     -d, --dir=<dir> ... the directory to output the subflows, typically 'subflows'
 ```
 
-If the new subflows require new Node-RED pacakges, the master `Dockerfile` for this repo must include the `npm` directives. Again, a pull request must be initiated to merge these `Dockerfile` changes into the `devimage` repo.
+If the new subflows require new Node-RED pacakges, the master `Dockerfile` for this repo must include the `npm` directives. Again, a pull request must be initiated to merge these `Dockerfile` changes into the `nodered_devimage` repo.
 
 If the new flows or subflows require new Node packages (these would be packages added to function scripts via the `var require = global.get('<packagename>');` call), the settings.js file must be modified to include these pacakges in the global context. Examples of modification are included in the settings.js file as well as here:
 ```
@@ -90,4 +90,4 @@ RUN npm install <packagename>
 COPY data/flows.json /data
 COPY data/settings.js /data
 ```
-A pull request must be initiated to merge these `settings.js` changes for subflows into the `devimage` repo.
+A pull request must be initiated to merge these `settings.js` changes for subflows into the `nodered_devimage` repo.
