@@ -38,7 +38,7 @@ docker run -it -p 8080:1880 --rm -v /absolute/path/to/nodered_devimage/data/:/da
 
 Connect to the container (typically [http://127.0.0.1:8080](http://127.0.0.1:8080) for the typical local container installation) and proceed to build flows and subflows as required.
 
-When the flows are ready for container deployment, the `flows.json` and `settings.js` file will need to be copied to the `data` directory of the final conainter by copying the `flows.json` to a `data` directory in the root of your new container project and including `COPY data/flows.json /data` in the `Dockerfile`. For example:
+When the flows are ready for container deployment, the `flows.json` and `settings.js` file will need to be copied to the `data` directory of the final conainter by copying thes files to a `data` directory in the root of your new container project and including `COPY` directives in the `Dockerfile`. For example:
 ```sh
 # from the nodered_devimage directory
 cp ./data/flows.json ../new_container/data
@@ -48,6 +48,7 @@ and
 ```Dockerfile
 FROM nodered/node-red-docker
 COPY data/flows.json /data
+COPY data/settings.js /data
 ```
 
 If new packages are required for the new flows, the `Dockerfile` of the new container must contain the `npm` directives. For example:
@@ -82,11 +83,6 @@ If the new flows or subflows require new Node packages (these would be packages 
  ```
 
 Additionally, the `Dockerfile` must include the `npm` directive for installing the new package. For example:
-```sh
-# from the nodered_devimage directory
-cp ./data/settings.json ../new_container/data
-```
-and
 ```Dockerfile
 FROM nodered/node-red-docker
 RUN npm install <packagename>
