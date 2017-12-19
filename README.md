@@ -16,7 +16,8 @@ A typical project directory structure for working with both the devimage contain
 |   |   +-- flows.json
 |   |   +-- settings.js
 |   +-- subflows
-|       +-- subflow_example.json
+|       +-- subflow_example1.json
+|       +-- subflow_exmaple2.json
 +-- new_container
     +-- Dockerfile
     +-- other supporting files
