@@ -14,6 +14,7 @@ A typical project directory structure for working with both the devimage contain
 |   +-- setup.sh
 |   +-- data
 |   |   +-- flows.json
+|   |   +-- settings.js
 |   +-- subflows
 |       +-- subflow_example.json
 +-- new_container
@@ -21,9 +22,10 @@ A typical project directory structure for working with both the devimage contain
     +-- other supporting files
     +-- data
         +-- flows.json
+        +-- settings.js
 ```
 
-Run `./setup.sh` to create data directory, merge all subflows into the default `flows.json`, and build the container. This setup script will call the `merge_flows.json` script to build `flows.json` from the individual subflow scripts found in the `subflows` directory. The container build is executed with the following arguments: 
+Run `./setup.sh` merge all subflows into the default `flows.json` and build the container. This setup script will call the `merge_flows.json` script to build `flows.json` from the individual subflow scripts found in the `subflows` directory. The container build is executed with the following arguments: 
 ```sh
 docker build -t devimage:latest .
 ```
