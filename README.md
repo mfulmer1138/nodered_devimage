@@ -38,7 +38,7 @@ docker run -it -p 8080:1880 --rm -v /absolute/path/to/nodered_devimage/data/:/da
 
 Connect to the container (typically [http://127.0.0.1:8080](http://127.0.0.1:8080) for the typical local container installation) and proceed to build flows and subflows as required.
 
-When the flows are ready for container deployment, the `flows.json` file will need to be copied to the `data` directory of the final conainter by copying the flows.json to a `data` directory in the root of your new container project and including `COPY data/flows.json /data` in the `Dockerfile`. For example:
+When the flows are ready for container deployment, the `flows.json` file will need to be copied to the `data` directory of the final conainter by copying the `flows.json` to a `data` directory in the root of your new container project and including `COPY data/flows.json /data` in the `Dockerfile`. For example:
 ```sh
 # from the nodered_devimage directory
 cp ./data/flows.json ../new_container/data
@@ -66,4 +66,27 @@ Usage for `export_subflows.py`:
     -d, --dir=<dir> ... the directory to output the subflows, typically 'subflows'
 ```
 
-Lastly, if the new subflows require new pacakges, the master `Dockerfile` for this repo must include the `npm` directives. Again, a pull request must be initiated to merge these `Dockerfile` changes into the `devimage` repo.
+If the new subflows require new Node-RED pacakges, the master `Dockerfile` for this repo must include the `npm` directives. Again, a pull request must be initiated to merge these `Dockerfile` changes into the `devimage` repo.
+
+If the new subflows require new Node packages (these would be packages added to function scripts via the `var require = global.get('<packagename>');` call), the settings.js file must be modified to include these pacakges in the global context. Examples of modification are included in the settings.js file as well as here:
+```
+    functionGlobalContext: {
+        // os:require('os'),
+        // octalbonescript:require('octalbonescript'),
+        // jfive:require("johnny-five"),
+        // j5board:require("johnny-five").Board({repl:false}),
+        packagename:require('<packagename>')
+    },
+ ```
+If there are `settings.js` changes, the `settings.js` file will need to be copied to the `data` directory of the final conainter by copying the `settings.js` to a `data` directory in the root of your new container project and including `COPY data/settings.json /data` in the `Dockerfile`. Additionally, the `Dockerfile` must include the `npm` directive for installing the new package. For example:
+```sh
+# from the nodered_devimage directory
+cp ./data/settings.json ../new_container/data
+```
+and
+```Dockerfile
+FROM nodered/node-red-docker
+RUN npm install <packagename>
+COPY data/flows.json /data
+COPY data/settings.js /data
+```
