@@ -1,4 +1,4 @@
-data/*
-!data/settings.json
+/data/*
+!/data/settings.json
 .DS_Store
 
