@@ -28,12 +28,17 @@ docker build -t devimage:latest .
 
 Run the container (with suggested port 8080):
 ```sh
-docker run -it -p 8080:1880 --rm -v /absolute/path/to/devimage/data/:/data -d --name devimage devimage:latest
+docker run -it -p 8080:1880 --rm -v /absolute/path/to/nodered_devimage/data/:/data -d --name devimage devimage:latest
 ```
 
 Connect to the container (typically [http://127.0.0.1:8080](http://127.0.0.1:8080) for the typical local container installation) and proceed to build flows and subflows as required.
 
 When the flows are ready for container deployment, the `flows.json` file will need to be copied to the `data` directory of the final conainter by copying the flows.json to a `data` directory in the root of your new container project and including `COPY data/flows.json /data` in the `Dockerfile`. For example:
+```sh
+# from the nodered_devimage directory
+cp ./data/flows.json ../new_container/data
+```
+and
 ```Dockerfile
 FROM nodered/node-red-docker
 COPY data/flows.json /data
@@ -46,7 +51,7 @@ RUN npm install node-red-contrib-env
 COPY data/flows.json /data
 ```
 
-If new subflows are created during the process of the flow development, and these subflows are deemed a shareable asset by the team, the subflows must be exported by using the `export_subflows.py` Python 3.5+ script and a pull request for the `devimage` must be initiated to merge the new subflows into the `devimage` repo.
+If new subflows are created during the process of the flow development, and these subflows are deemed a shareable asset by the team, the subflows must be exported by using the `export_subflows.py` Python 3.5+ script and a pull request must be initiated to merge the new subflows into the `nodered_devimage` repo.
 
 Usage for `export_subflows.py`:
 ```
