@@ -26,7 +26,7 @@ A typical project directory structure for working with both the `devimage` conta
         +-- settings.js
 ```
 
-Run `./setup.sh` merge all subflows into the default `flows.json` and build the `devimage` container. This setup script will call the `merge_flows.json` script to build `flows.json` from the individual subflow scripts found in the `subflows` directory. The container build is executed with the following arguments: 
+Run `./setup.sh` merge all subflows into the default `flows.json` and build the `devimage` container. This setup script will call the `merge_flows.json` script to build `flows.json` from the individual subflow scripts found in the `subflows` directory and place the `flows.json` file into the `data` directory of `nodered_devimage`. The container build is executed with the following arguments: 
 ```sh
 docker build -t devimage:latest .
 ```
@@ -78,6 +78,7 @@ If the new flows or subflows require new Node packages (these would be packages 
         packagename:require('<packagename>')
     },
  ```
+
 In order to ensure these settings files changes are always available to the new packages, the `settings.js` file will need to be copied to the `data` directory of the final conainter by copying the `settings.js` to a `data` directory in the root of your new container project and including `COPY data/settings.json /data` in the `Dockerfile`. Additionally, the `Dockerfile` must include the `npm` directive for installing the new package. For example:
 ```sh
 # from the nodered_devimage directory
@@ -90,4 +91,5 @@ RUN npm install <packagename>
 COPY data/flows.json /data
 COPY data/settings.js /data
 ```
+
 A pull request must be initiated to merge these `settings.js` changes for subflows into the `nodered_devimage` repo.
