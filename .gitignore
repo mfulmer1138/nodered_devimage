@@ -1,4 +1,6 @@
-/data/*
-!/data/settings.json
+# macOS
 .DS_Store
+
+/data/*
+!/data/settings.js
 
