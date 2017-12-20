@@ -2,8 +2,14 @@
 ''' take all files from the subflows directory under the current working directory
     and merge them into a master flows.json
 '''
+
 import glob
 import json
+
+__author__ = "Michael Fulmer"
+__copyright__ = "Copyright (C) 2017 Michael Fulmer"
+__license__ = "MIT License"
+__version__ = "1.0"
 
 if __name__ == "__main__":
 

@@ -3,10 +3,15 @@
 '''
 
 from urllib.parse import urlparse
-import json
-import requests
 import sys
 import getopt
+import json
+import requests
+
+__author__ = "Michael Fulmer"
+__copyright__ = "Copyright (C) 2017 Michael Fulmer"
+__license__ = "MIT License"
+__version__ = "1.0"
 
 class Flows(object):
     ''' main Flows utility class
@@ -82,13 +87,13 @@ def usage():
 if __name__ == "__main__":
 
     try:
-         opts, args = getopt.getopt(sys.argv[1:],"h?u:d:",["url=","dir="])
+        opts, args = getopt.getopt(sys.argv[1:], "h?u:d:", ["url=", "dir="])
     except getopt.GetoptError as err:
         print(err)
         print(usage())
         sys.exit(2)
     for opt, arg in opts:
-        if opt == '-h' or opt=='-?':
+        if opt == '-h' or opt == '-?':
             print(usage())
             sys.exit()
         elif opt in ("-u", "--url"):
@@ -102,7 +107,7 @@ if __name__ == "__main__":
 
     for (sid, name) in flows.iterate_subflows():
         subflow = flows.get_subflow(sid)
-        flows.store_subflow(subflow, "{}/subflow_{}.json".format(outdir,name.replace(" ", "_")))
+        flows.store_subflow(subflow, "{}/subflow_{}.json".format(outdir, name.replace(" ", "_")))
 
     # examples of other features
     #flows.store_subflow(flows.get_subflows(), "./flows/subflow_master.json")
